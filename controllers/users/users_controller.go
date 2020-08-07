@@ -51,5 +51,5 @@ func DeleteUser(c *gin.Context) {
 		c.JSON(restErr.Status, restErr)
 		return
 	}
-	c.JSON(http.StatusOk, gin.H{"isRemoved": true})
+	c.JSON(http.StatusOK, gin.H{"isRemoved": true})
 }
