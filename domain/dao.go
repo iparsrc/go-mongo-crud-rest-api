@@ -25,3 +25,15 @@ func Create(user *User) (*User, *utils.RestErr) {
 	user.Password = ""
 	return user, nil
 }
+
+func Find(email string) (*User, *utils.RestErr) {
+	var user User
+	usersC := db.Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+	err := usersC.FindOne(ctx, bson.M{"email": email}).Decode(&user)
+	if err != nil {
+		restErr := utils.NotFound("user not found.")
+		return nil, restErr
+	}
+	return &user, nil
+}

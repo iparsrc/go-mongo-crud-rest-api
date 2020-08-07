@@ -12,3 +12,12 @@ func CreateUser(user *domain.User) (*domain.User, *utils.RestErr) {
 	}
 	return user, nil
 }
+
+func FindUser(email string) (*domain.User, *utils.RestErr) {
+	user, restErr := domain.Find(email)
+	if restErr != nil {
+		return nil, restErr
+	}
+	user.Password = ""
+	return user, nil
+}

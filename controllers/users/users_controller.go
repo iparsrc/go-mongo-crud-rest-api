@@ -1,6 +1,7 @@
 package users
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,4 +23,20 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusCreated, user)
+}
+
+func FindUser(c *gin.Context) {
+	userEmail := c.Query("email")
+	if userEmail == "" {
+		restErr := utils.BadRequest("No email.")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	fmt.Println(userEmail)
+	user, restErr := services.FindUser(userEmail)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	c.JSON(http.StatusOK, user)
 }
