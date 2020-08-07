@@ -21,3 +21,11 @@ func FindUser(email string) (*domain.User, *utils.RestErr) {
 	user.Password = ""
 	return user, nil
 }
+
+func DeleteUser(email string) *utils.RestErr {
+	restErr := domain.Delete(email)
+	if restErr != nil {
+		return restErr
+	}
+	return nil
+}
