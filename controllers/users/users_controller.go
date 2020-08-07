@@ -16,7 +16,7 @@ func CreateUser(c *gin.Context) {
 		c.JSON(restErr.Status, restErr)
 		return
 	}
-	user, restErr := services.CreateUser(&user)
+	user, restErr := services.CreateUser(&newUser)
 	if restErr != nil {
 		c.JSON(restErr.Status, restErr)
 		return
