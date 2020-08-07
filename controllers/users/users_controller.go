@@ -1,7 +1,6 @@
 package users
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -28,15 +27,29 @@ func CreateUser(c *gin.Context) {
 func FindUser(c *gin.Context) {
 	userEmail := c.Query("email")
 	if userEmail == "" {
-		restErr := utils.BadRequest("No email.")
+		restErr := utils.BadRequest("no email.")
 		c.JSON(restErr.Status, restErr)
 		return
 	}
-	fmt.Println(userEmail)
 	user, restErr := services.FindUser(userEmail)
 	if restErr != nil {
 		c.JSON(restErr.Status, restErr)
 		return
 	}
 	c.JSON(http.StatusOK, user)
+}
+
+func DeleteUser(c *gin.Context) {
+	userEmail := c.Query("email")
+	if userEmail == "" {
+		restErr := utils.BadRequest("no email.")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	restErr := services.DeleteUser(userEmail)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	c.JSON(http.StatusOk, gin.H{"isRemoved": true})
 }
