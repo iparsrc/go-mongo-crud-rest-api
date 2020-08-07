@@ -34,9 +34,8 @@ func Find(email string) (*User, *utils.RestErr) {
 	if err != nil {
 		restErr := utils.NotFound("user not found.")
 		return nil, restErr
-		return &user, nil
 	}
-
+	return &user, nil
 }
 
 func Delete(email string) *utils.RestErr {
