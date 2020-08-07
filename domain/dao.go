@@ -34,6 +34,22 @@ func Find(email string) (*User, *utils.RestErr) {
 	if err != nil {
 		restErr := utils.NotFound("user not found.")
 		return nil, restErr
+		return &user, nil
 	}
-	return &user, nil
+
+}
+
+func Delete(email string) *utils.RestErr {
+	usersC := db.Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+	result, err := usersC.DeleteOne(ctx, bson.M{"email": email})
+	if err != nil {
+		restErr := utils.NotFound("faild to delete.")
+		return restErr
+	}
+	if result.DeletedCount == 0 {
+		restErr := utils.NotFound("user not found.")
+		return restErr
+	}
+	return nil
 }
