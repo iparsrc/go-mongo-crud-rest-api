@@ -84,7 +84,4 @@ All the endpoints return an error in json format. Ex)
    "Status": <status>,
    "Error": <error>
 }
-
-
-
-
+```
