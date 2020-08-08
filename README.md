@@ -1,5 +1,5 @@
-# go-mongo-CRUD-web-REST-API
-This is a simple CRUD operation on mongodb using golang. It's using http req to operate.  
+# go-mongodb-CRUD-REST-API
+This is a simple CRUD operation on mongodb using golang. It's using http requests to operate.  
 Endpoints are:
 ```
 /ping
@@ -10,13 +10,13 @@ Endpoints are:
 ```
 ## /ping  
 Send a GET request.  
-Returns string:  
+Returns a string:  
 ```
 pong
 ```
 This is only to check if the server is running.
 ## /users/find  
-Send a GET request(only email). Ex)
+Send a GET request(only email as parameter). Ex)
 ```
 localhost:8080/users/find?email=akbariparsa1209@gmail.com
 ```
@@ -47,7 +47,7 @@ Returns a json:
   "password": ""
 }
 ```
-This endpoint creates a document in the *users* collection of the *users* mongodb database.  
+This endpoint creates a document in the *users* collection of the *users* database.  
 ## /users/update  
 Send a GET request. Ex)
 ```
@@ -76,7 +76,7 @@ Returns a json:
 ```
 This endpoint deletes the user based on the user eamil.  
 ## Errors
-All the endpoints return an error in json format. Ex)
+All the endpoints return an error in json format if something goes wrong. Ex)
 ```
 {
    "Message": <message>,
