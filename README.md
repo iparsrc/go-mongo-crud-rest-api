@@ -73,7 +73,6 @@ Returns a json:
 {
   "isRemoved": true
 }
-
 ```
 This endpoint deletes the user based on the user eamil.  
 ## Errors
