@@ -53,3 +53,30 @@ func DeleteUser(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{"isRemoved": true})
 }
+
+func UpdateUser(c *gin.Context) {
+	userEmail := c.Query("email")
+	field := c.Query("field")
+	value := c.Query("value")
+	if userEmail == "" {
+		restErr := utils.BadRequest("no email.")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	if field == "" {
+		restErr := utils.BadRequest("no field.")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	if value == "" {
+		restErr := utils.BadRequest("no value.")
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	user, restErr := services.UpdateUser(userEmail, field, value)
+	if restErr != nil {
+		c.JSON(restErr.Status, restErr)
+		return
+	}
+	c.JSON(http.StatusOK, user)
+}
