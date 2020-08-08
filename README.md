@@ -8,3 +8,24 @@ Endpoints are:
 /users/delete
 /users/update
 ```
+## /ping  
+Send a GET request.  
+Returns string:  
+```
+pong
+```
+This is only to check if the server is running.
+## /users/find  
+Send a GET request(only email). EX)
+```
+localhost:8080/users/find?email=akbariparsa1209@gmail.com
+```
+Returns a json:
+```
+{
+  "_id": "<user id>",
+  "name": "<user name>",
+  "email": "<user email>",
+  "password": "",
+}
+```
