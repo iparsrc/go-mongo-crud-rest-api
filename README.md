@@ -3,8 +3,8 @@ This is a simple CRUD operation on mongodb using golang. It's using http req to 
 Endpoints are:
 ```
 /ping
-/users/create
 /users/find
+/users/create
 /users/delete
 /users/update
 ```
