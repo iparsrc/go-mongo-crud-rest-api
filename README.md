@@ -1,4 +1,4 @@
-# go-mongo-CRUD-web
+# go-mongo-CRUD-web-REST-API
 This is a simple CRUD operation on mongodb using golang. It's using http req to operate.  
 Endpoints are:
 ```
@@ -84,3 +84,14 @@ All the endpoints return an error in json format. Ex)
    "Error": <error>
 }
 ```
+### Used:
+mux: **github.com/gin-gonic/gin**  
+lang: **go**  
+mongodb driver: **go.mongodb.org/mongo-driver**  
+### How to run app:
+```
+1. go get github.com/gin-gonic/gin
+2. go get go.mongodb.org/mongo-driver
+go run main.go
+```
+It runs on port 8080 by default.
