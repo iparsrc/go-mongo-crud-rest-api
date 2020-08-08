@@ -94,10 +94,10 @@ First, get libs and source code.
 go get github.com/gin-gonic/gin
 ```
 ```
-2. go get go.mongodb.org/mongo-driver
+go get go.mongodb.org/mongo-driver
 ```
 ```
-3. go get github.com/parsaakbari1209/go-mongo-CRUD-web/
+go get github.com/parsaakbari1209/go-mongo-CRUD-web/
 ```
 Then change directory to *<$GOPATH>/src/github.com/parsaakbari1209/go-mongo-CRUD-web/* and run:
 ```
