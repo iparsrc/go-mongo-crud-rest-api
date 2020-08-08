@@ -85,14 +85,18 @@ All the endpoints return an error in json format. Ex)
 }
 ```
 ### Used:
-mux: **github.com/gin-gonic/gin**  
 lang: **go**  
+mux: **github.com/gin-gonic/gin**  
 mongodb driver: **go.mongodb.org/mongo-driver**  
 ### How to run app:
 First, get libs and source code.
 ```
-1. go get github.com/gin-gonic/gin
+go get github.com/gin-gonic/gin
+```
+```
 2. go get go.mongodb.org/mongo-driver
+```
+```
 3. go get github.com/parsaakbari1209/go-mongo-CRUD-web/
 ```
 Then change directory to *<$GOPATH>/src/github.com/parsaakbari1209/go-mongo-CRUD-web/* and run:
