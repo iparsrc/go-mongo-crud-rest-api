@@ -35,5 +35,6 @@ func UpdateUser(email string, field string, value string) (*domain.User, *utils.
 	if restErr != nil {
 		return nil, restErr
 	}
+	user.Password = ""
 	return user, nil
 }
