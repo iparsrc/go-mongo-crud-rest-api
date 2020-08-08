@@ -16,7 +16,7 @@ pong
 ```
 This is only to check if the server is running.
 ## /users/find  
-Send a GET request(only email). EX)
+Send a GET request(only email). Ex)
 ```
 localhost:8080/users/find?email=akbariparsa1209@gmail.com
 ```
@@ -29,3 +29,62 @@ Returns a json:
   "password": "",
 }
 ```
+## /users/create
+Send a POST request with a json body. Ex)
+```
+{
+  "name": "Parsa Akbari",
+  "email": "akbariparsa1209@gmail.com",
+  "password": "abcd1234"
+}
+```
+Returns a json:  
+```
+{
+  "_id": "<user id>",
+  "name": "<user name>",
+  "eamil": "<user email>",
+  "password": ""
+}
+```
+This endpoint creates a document in the *users* collection of the *users* mongodb database.  
+## /users/update  
+Send a GET request. Ex)
+```
+localhost:8080/users/update?email=akbariparsa1209@gmail.com&field=name&value=Parsa
+```
+Returns a json:
+```
+{
+  "_id": "<user id>",
+  "name": "<user name>",
+  "eamil": "<user email>",
+  "password": ""
+}
+```
+This endpoint updates the field *name* of the user with specified email to the value of *Parsa* and returns the updated user profile.  
+## /users/delete
+Send a GET request. Ex)
+```
+localhost:8080/users/delete?email=akbariparsa1209@gmail.com
+```
+Returns a json:
+```
+{
+  "isRemoved": true
+}
+
+```
+This endpoint deletes the user based on the user eamil.  
+## Errors
+All the endpoints return an error in json format. Ex)
+```
+{
+   "Message": <message>,
+   "Status": <status>,
+   "Error": <error>
+}
+
+
+
+
