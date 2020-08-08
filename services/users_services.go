@@ -29,3 +29,11 @@ func DeleteUser(email string) *utils.RestErr {
 	}
 	return nil
 }
+
+func UpdateUser(email string, field string, value string) (*domain.User, *utils.RestErr) {
+	user, restErr := domain.Update(email, field, value)
+	if restErr != nil {
+		return nil, restErr
+	}
+	return user, nil
+}
