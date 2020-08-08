@@ -52,3 +52,26 @@ func Delete(email string) *utils.RestErr {
 	}
 	return nil
 }
+
+func Update(email string, field string, value string) (*User, *utils.RestErr) {
+	usersC := db.Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+	result, err := usersC.UpdateOne(ctx, bson.M{"email": email}, bson.M{"$set": bson.M{field: value}})
+	if err != nil {
+		restErr := utils.InternalErr("can not update.")
+		return nil, restErr
+	}
+	if result.MatchedCount == 0 {
+		restErr := utils.NotFound("user not found.")
+		return nil, restErr
+	}
+	if result.ModifiedCount == 0 {
+		restErr := utils.BadRequest("no such field")
+		return nil, restErr
+	}
+	user, restErr := Find(email)
+	if restErr != nil {
+		return nil, restErr
+	}
+	return user, restErr
+}
