@@ -1,106 +1,115 @@
-# go-mongodb-crud-rest-api
-This is a simple CRUD operation on mongodb using golang. It's using http requests to operate.  
-Endpoints are:
+This is CRUD operations on MongoDB written in Golang. You can create, read, update, and delete users from the MongoDB instance using http requests.
+
+## How to run?
+First, start a MongoDB instance using docker:
+```sh
+docker run --name mongodb -d -p 27017:27017 mongo
 ```
-/ping
-/users/find
-/users/create
-/users/delete
-/users/update
+Next, clone the repository:
+```sh
+git clone git@github.com:parsaakbari1209/go-mongo-crud-rest-api.git
 ```
-## /ping  
-Send a GET request.  
-Returns a string:  
+Next, change the current directory to the repository:
+```sh
+cd go-mongo-crud-rest-api
 ```
-pong
+Next, install the dependencies:
+```sh
+go get ./...
 ```
-This is only to check if the server is running.
-## /users/find  
-Send a GET request(only email as parameter). Ex)
+Finally, run the app on port `9080`:
+```sh
+go run .
 ```
-localhost:8080/users/find?email=bob@gmail.com
+
+## Endpoints:
+```sh
+GET    /users/:email
+POST   /users
+PUT    /users/:email
+DELETE /users/:email
 ```
-Returns a json:
+
+### Get User
+This endpoint retrieves a user given the email.  
+Send a `GET` request to `/users/:email`:
+```sh
+curl -X GET 'http://127.0.0.1:9080/users/bob@gmail.com'
 ```
+Response:
+```sh
 {
-  "_id": "<user_id>",
-  "name": "<user_name>",
-  "email": "<user_email>",
-  "password": "",
+  "user": {
+    "id": "<user_id>",
+    "name": "Bob",
+    "email": "bob@gmail.com",
+    "password": "ilovealice"
+  }
 }
 ```
-## /users/create
-Send a POST request with a json body. Ex)
+### Create User
+This endpoint inserts a document in the `users` collection of the `users` database.  
+Send a `POST` request to `/users`:
+```sh
+curl -X POST 'http://127.0.0.1:9080/users' -H "Content-Type: application/json" -d '{"name": "Bob", "email": "bob@gmail.com", "password": "ilovealice"}'
 ```
+Response:  
+```sh
 {
-  "name": "Bob",
-  "email": "bob@gmail.com",
-  "password": "securepassword"
+  "user": {
+    "id": "<user_id>",
+    "name": "Bob",
+    "email": "bob@gmail.com",
+    "password": "ilovealice"
+  }
 }
 ```
-Returns a json:  
+### Update User
+This endpoint updates the provided fields within the specified document filtered by email.  
+Send a `PUT` request to `/users/:email`:
+```sh
+curl -X PUT 'http://127.0.0.1:9080/users/bob@gmail.com' -H "Content-Type: application/json" -d '{"password": "loveyoualice"}'
 ```
+Response:
+```sh
 {
-  "_id": "<user_id>",
-  "name": "<user_name>",
-  "eamil": "<user_email>",
-  "password": ""
+  "user": {
+    "id": "<user_id>",
+    "name": "Bob",
+    "email": "bob@gmail.com",
+    "password": "loveyoualice"
+  }
 }
 ```
-This endpoint creates a document in the *users* collection of the *users* database.  
-## /users/update  
-Send a GET request. Ex)
+
+### Delete User
+This endpoint deletes the user from database given the email.  
+Send a `DELETE` request to `/users/:email`:
+```sh
+curl -X DELETE 'http://127.0.0.1:9080/users/bob@gmail.com'
 ```
-localhost:8080/users/update?email=bob@gmail.com&field=name&value=Alice
+Response:
+```sh
+{}
 ```
-Returns a json:
-```
+
+### Errors
+All of the endpoints return an error in json format with a proper http status code, if something goes wrong:
+```sh
 {
-  "_id": "<user_id>",
-  "name": "<user_name>",
-  "eamil": "<user_email>",
-  "password": ""
+  "error": "user not found"
 }
 ```
-This endpoint updates the field *name* of the user with specified email to the value of *Parsa* and returns the updated user profile.  
-## /users/delete
-Send a GET request. Ex)
-```
-localhost:8080/users/delete?email=bob@gmail.com
-```
-Returns a json:
-```
-{
-  "isRemoved": true
-}
-```
-This endpoint deletes the user based on the user eamil.  
-## Errors
-All the endpoints return an error in json format if something goes wrong. Ex)
-```
-{
-   "Message": <message>,
-   "Status": <status>,
-   "Error": <error>
-}
-```
-### Used:
-lang: **go**  
-mux: **github.com/gin-gonic/gin**  
-mongodb driver: **go.mongodb.org/mongo-driver**  
-### How to run app:
-First, get libs and source code.
-```
-go get github.com/gin-gonic/gin
-```
-```
-go get go.mongodb.org/mongo-driver
-```
-```
-go get github.com/parsaakbari1209/go-mongo-CRUD-web/
-```
-Then change directory to *<$GOPATH>/src/github.com/parsaakbari1209/go-mongo-CRUD-web/* and run:
-```
-go run main.go
-```
-It runs on port 8080 by default.
+
+## Conventions
+Here is a list of conventions used:
+- [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0)
+- [Google's API design guide](https://cloud.google.com/apis/design)
+- [Uber's Go code style](https://github.com/uber-go/guide/blob/master/style.md)
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
